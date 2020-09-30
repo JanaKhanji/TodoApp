@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">My Todo List</a>
+
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-dark" (click)="getTodo()">All</button>
+                <button type="button" class="btn btn-dark" (click)="FilterActive()">Active</button>
+                <button type="button" class="btn btn-dark" (click)="Filtercompleted()">Completed</button>
+            </div>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-dark my-2 my-sm-0" type="submit">{{uncompleted()}} remaining task</button>
+            <button *ngIf="todos.length-uncompleted()" class="btn btn-outline-danger my-2 my-sm-0" (click)="clearcompleted()">Clear completed</button>
+         
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+
+        <br>
+        <div>
+            <input type="text" class="form-control" placeholder="What needs to be done" (keyup.enter)="addtodo()"
+                [(ngModel)]="todoTitle" name="title">
+        </div>
+        <br>
+        <div class="form-check" *ngFor="let x of todoshow">
+            <input class="form-check-input position-static" [(ngModel)]="x.completed" type="checkbox" id="gridCheck1"
+                value="option1"  (change)="EditTodoAPI(x)">
+            <span (dblclick)="editTodo(x)" *ngIf="x.editing==false; else elseBlock">
+                <label class="form-check-label" for="gridCheck">
+                    &nbsp; &nbsp; <span [ngClass]="{'lineThrough': x.completed}">{{x.title}}</span>
+                </label>
+                <button type="button" class="close" aria-label="Close" (click)="deleteTodo(x._id)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </span>
+            <span>
+                <ng-template #elseBlock >
+                    <div class="row">
+                    <input type="text" class="form-control col-6" (blur)="doneEditing(x)" (keyup.enter)="doneEditing(x)"
+                        (keyup.esc)="dontedit(x)" [(ngModel)]="x.title" Autofocus required>
+                    </div>
+                </ng-template>
+            </span>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+</div>
