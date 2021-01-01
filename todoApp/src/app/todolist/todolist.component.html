@@ -14,7 +14,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-dark my-2 my-sm-0" type="submit">{{uncompleted()}} remaining task</button>
-            <button *ngIf="todos.length-uncompleted()" class="btn btn-outline-danger my-2 my-sm-0" (click)="clearcompleted()">Clear completed</button>
+            <button *ngIf="todos.length-uncompleted()" class="btn btn-outline-danger my-2 my-sm-0" (click)="clearuncompleted()">Clear completed</button>
          
         </form>
     </div>
@@ -38,7 +38,7 @@
                 <label class="form-check-label" for="gridCheck">
                     &nbsp; &nbsp; <span [ngClass]="{'lineThrough': x.completed}">{{x.title}}</span>
                 </label>
-                <button type="button" class="close" aria-label="Close" (click)="deleteTodo(x._id)">
+                <button type="button" class="close" aria-label="Close" (click)="deleteTodo(x.id)">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </span>
